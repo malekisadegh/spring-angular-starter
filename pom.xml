@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.6.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>sadad.ir</groupId>
+  <artifactId>los</artifactId>
+  <version>0.0.1</version>
+  <packaging>war</packaging>
+  <name>los</name>
+  <description>loan operation system</description>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <node.version>v10.16.0</node.version>
+    <npm.version>6.9.0</npm.version>
+
+    <start-class>ir.sadad.los.LosApplication</start-class>
+
+    <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+    <frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>${artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <configuration>
+          <failOnNoGitDirectory>false</failOnNoGitDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.eirslett</groupId>
+          <artifactId>frontend-maven-plugin</artifactId>
+          <version>${frontend-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <version>2.2.6.RELEASE</version>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+        </dependency>
+      </dependencies>
+      <properties>
+      </properties>
+    </profile>
+    <profile>
+      <id>prod</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>dist/</directory>
+                </fileset>
+              </filesets>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <mainClass>${start-class}</mainClass>
+              <executable>true</executable>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build-info</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <configuration>
+                  <nodeVersion>${node.version}</nodeVersion>
+                  <npmVersion>${npm.version}</npmVersion>
+                </configuration>
+              </execution>
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+                  <arguments>install</arguments>
+                </configuration>
+              </execution>
+       <!--       <execution>
+                <id>webapp build test</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>test</phase>
+                <configuration>
+                  <arguments>run test</arguments>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
+              </execution>-->
+              <execution>
+                <id>webapp build prod</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run build</arguments>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>pl.project13.maven</groupId>
+            <artifactId>git-commit-id-plugin</artifactId>
+          </plugin>
+
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>${properties-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>war</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>${maven-war-plugin.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>war</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+            <!--  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>-->
+              <failOnMissingWebXml>false</failOnMissingWebXml>
+              <warSourceDirectory>dist/</warSourceDirectory>
+              <webResources>
+                <resource>
+                  <directory>dist/</directory>
+                  <includes>
+                    <include>WEB-INF/**</include>
+                  </includes>
+                </resource>
+              </webResources>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,38 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./target/classes/static",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/main/webapp/app/*"],
+      "@core": ["src/main/webapp/app/@core"],
+      "@core/*": ["src/main/webapp/app/@core/*"],
+      "@modules": ["src/main/webapp/app/@modules"],
+      "@modules/*": ["src/main/webapp/app/@modules/*"],
+      "@shared": ["src/main/webapp/app/@shared"],
+      "@shared/*": ["src/main/webapp/app/@shared/*"],
+      "@assets": ["src/main/webapp/content"],
+      "@assets/*": ["src/main/webapp/content/*"],
+      "@env/*": ["src/main/webapp/environments/*"]
+    }
+  },
+  "include": ["src/main/webapp/app", "src/test/javascript/"],
+  "exclude": ["node_modules"],
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "preserveWhitespaces": true
+  }
+}

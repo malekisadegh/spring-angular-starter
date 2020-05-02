@@ -1,0 +1,16 @@
+@import "../content/theme/theme-variables";
+.top-gap {
+  margin-top: $topGap;
+}
+.sidenav-container {
+  height: 100vh;
+  background-color: $light;
+}
+
+.content {
+  padding: 10px 15px;
+}
+/* stylelint-disable declaration-no-important */
+.right-fixture {
+  margin-right: 255px !important;
+}

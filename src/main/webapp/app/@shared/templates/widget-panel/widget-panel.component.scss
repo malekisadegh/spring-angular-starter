@@ -1,0 +1,27 @@
+@import "~src/main/webapp/content/theme/theme-variables";
+
+.widget-panel-wrapper {
+  padding: 15px;
+  margin-bottom: 100px;
+  direction: rtl;
+  text-align: right;
+  .widget-panel-tittle {
+    display: flex;
+    align-items: flex-start;
+
+    .widget-panel-tittle-text {
+      font-size: 18px;
+    }
+
+    .widget-panel-icon {
+      margin: 0 10px 0 5px;
+    }
+  }
+
+  .widget-panel-content {
+    background-color: $white;
+    border-radius: 3px;
+    box-shadow: 1px 0 2px #ccc;
+    padding: 3px;
+  }
+}
