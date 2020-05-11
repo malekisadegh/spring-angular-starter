@@ -9,6 +9,7 @@ const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, data: { title: extract('Home') } },
+    { path: 'los', component: HomeComponent, data: { title: extract('Home') } },
   ]),
 ];
 

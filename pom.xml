@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -8,6 +8,7 @@
     <version>2.2.6.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
+
   <groupId>sadad.ir</groupId>
   <artifactId>los</artifactId>
   <version>0.0.1</version>
@@ -16,14 +17,15 @@
   <description>loan operation system</description>
 
   <properties>
-    <java.version>1.8</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <node.version>v10.16.0</node.version>
     <npm.version>6.9.0</npm.version>
+    <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+    <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
 
     <start-class>ir.sadad.los.LosApplication</start-class>
-
-    <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-    <frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -33,10 +35,11 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-tomcat</artifactId>
-      <scope>provided</scope>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-client</artifactId>
     </dependency>
+
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -48,10 +51,133 @@
         </exclusion>
       </exclusions>
     </dependency>
+<!--
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+      <version>4.2.1.RELEASE</version>
+    </dependency>
+
+  <!--  <dependency>
+      <groupId>ir.bmi.identity</groupId>
+      <artifactId>client-security-api</artifactId>
+      <version>3.5.0</version>
+    </dependency>-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.6</version>
+      <scope>compile</scope>
+    </dependency>
+
+   <!-- <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>-->
+ <!--   <dependency>
+      <groupId>org.apache.oltu.oauth2</groupId>
+      <artifactId>org.apache.oltu.oauth2.common</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.oltu.oauth2</groupId>
+      <artifactId>org.apache.oltu.oauth2.resourceserver</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>-->
+
+<!--    <dependency>
+      <groupId>org.apache.oltu.oauth2</groupId>
+      <artifactId>org.apache.oltu.oauth2.client</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.oltu.oauth2</groupId>
+      <artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.oltu.jose</groupId>
+      <artifactId>org.apache.oltu.jose.jws</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>-->
+<!--    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>-->
+<!--    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.13</version>
+      <scope>compile</scope>
+    </dependency>-->
+<!--    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+      <scope>compile</scope>
+    </dependency>-->
+
+<!--    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>20.0</version>
+      <scope>compile</scope>
+    </dependency>-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -91,14 +217,43 @@
         <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-devtools</artifactId>
-          <version>2.2.6.RELEASE</version>
           <optional>true</optional>
         </dependency>
+
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
         </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-configuration-processor</artifactId>
+          <optional>true</optional>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
       </dependencies>
+
       <properties>
       </properties>
     </profile>
@@ -160,17 +315,17 @@
                   <arguments>install</arguments>
                 </configuration>
               </execution>
-       <!--       <execution>
-                <id>webapp build test</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <phase>test</phase>
-                <configuration>
-                  <arguments>run test</arguments>
-                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                </configuration>
-              </execution>-->
+              <!--       <execution>
+                       <id>webapp build test</id>
+                       <goals>
+                         <goal>npm</goal>
+                       </goals>
+                       <phase>test</phase>
+                       <configuration>
+                         <arguments>run test</arguments>
+                         <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                       </configuration>
+                     </execution>-->
               <execution>
                 <id>webapp build prod</id>
                 <goals>
@@ -223,7 +378,7 @@
               </execution>
             </executions>
             <configuration>
-            <!--  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>-->
+              <!--  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>-->
               <failOnMissingWebXml>false</failOnMissingWebXml>
               <warSourceDirectory>dist/</warSourceDirectory>
               <webResources>

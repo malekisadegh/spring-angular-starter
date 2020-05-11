@@ -5,7 +5,6 @@ import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Logger, untilDestroyed } from '@core';
-import { AuthenticationService } from './authentication.service';
 
 const log = new Logger('Login');
 
@@ -20,12 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   isLoading = false;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
-  ) {
+  constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.createForm();
   }
 
@@ -33,28 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  login() {
-    this.isLoading = true;
-    const login$ = this.authenticationService.login(this.loginForm.value);
-    login$
-      .pipe(
-        finalize(() => {
-          this.loginForm.markAsPristine();
-          this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(
-        (credentials) => {
-          log.debug(`${credentials.username} successfully logged in`);
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
-        },
-        (error) => {
-          log.debug(`Login error: ${error}`);
-          this.error = error;
-        }
-      );
-  }
+  login() {}
 
   private createForm() {
     this.loginForm = this.formBuilder.group({

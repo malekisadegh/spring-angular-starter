@@ -8,6 +8,6 @@ export class ShortCutMenuService {
   constructor(private httpClient: HttpClient) {}
 
   public speedAccessMenu() {
-    return this.httpClient.get('speedAccessMenu');
+    return this.httpClient.get('./content/mock/speedAccessMenu.json');
   }
 }

@@ -1,5 +1,6 @@
 {
-  "APP_NAME": "BMI loan system",
+  "SYS_NAME": "BMI loan system",
+  "APP_NAME": "Bank Debtors Debt Settlement System",
   "About": "About",
   "Hello world !": "Hello world !",
   "Home": "main page",
@@ -26,5 +27,7 @@
   "customer type": "customer type",
   "customer Number": "customer Number",
   "view request": "view request",
-  "leasing": "leasing"
+  "leasing": "leasing",
+  "goToHelp": "view help of application",
+  "welcome.message": ""
 }

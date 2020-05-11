@@ -1,0 +1,27 @@
+[
+  {
+    "title": "صفحه اصلی",
+    "icon": "home",
+    "link": "/home",
+    "home": true
+  },
+  {
+    "title": "مدیریت درخواست های اعتباری",
+    "icon": "credit_card",
+    "children": [
+      {
+        "title": "ثبت درخواست",
+        "link": "/stepper"
+      },
+      {
+        "title": "پیگیری درخواست",
+        "link": "/list"
+      }
+    ]
+  },
+  {
+    "title": "درخواست شعبه",
+    "icon": "business",
+    "link": "/BranchRequest"
+  }
+]
