@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootApplication
+@EnableConfigurationProperties
 public class LosApplication implements InitializingBean {
 
     private static final Logger log = LoggerFactory.getLogger(LosApplication.class);
