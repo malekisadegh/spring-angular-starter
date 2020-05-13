@@ -1,41 +1,40 @@
 package ir.sadad.los.config;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+//${spring.profiles.active}
+//ignoreResourceNotFound=true,
 @Data
 @ToString
 @ConfigurationProperties(prefix = "oauth2")
-public class IntegrationConfigs {
+@PropertySource(value="classpath:security.properties")
+public class SecurityConfigs {
 
-
-  @Value("${client.secret:}")
+  @Value("${oauth2.client.secret:}")
   private String clientSecret;
 
-  @Value("${client.id:}")
+  @Value("${oauth2.client.id:}")
   private String clientId;
 
-  @Value("${client.name:}")
+  @Value("${oauth2.client.name:}")
   private String clientName;
 
-  @Value("${client.scope:}")
+  @Value("${oauth2.client.scope:}")
   private String clientScope;
 
-  @Value("${client.redirectUri:}")
+  @Value("${oauth2.client.redirectUri:}")
   private String redirectUri;
 
-  @Value("${client.authenticationMethod:}")
+  @Value("${oauth2.client.authenticationMethod:}")
   private String authenticationMethod;
 
-  @Value("${client.grantType:}")
+  @Value("${oauth2.client.grantType:}")
   private String grantType;
 
-  @Value("${provide.tokenUri:}")
+  @Value("${provider.tokenUri:}")
   private String tokenUri;
 
   @Value("${provider.authorizationUri:}")

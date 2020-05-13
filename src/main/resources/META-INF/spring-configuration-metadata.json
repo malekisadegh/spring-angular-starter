@@ -2,69 +2,69 @@
   "groups": [
     {
       "name": "oauth2",
-      "type": "ir.sadad.los.config.IntegrationConfigs",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs"
+      "type": "ir.sadad.los.config.SecurityConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs"
     }
   ],
   "properties": [
     {
       "name": "oauth2.client.secret",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "secret.key"
     },
     {
       "name": "oauth2.client.id",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "client.id"
     },
     {
       "name": "oauth2.client.name",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "client.name"
     },
     {
       "name": "oauth2.client.scope",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "client.scope"
     },
     {
       "name": "oauth2.client.redirectUri",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "client.redirectUri"
     },
     {
       "name": "oauth2.client.authenticationMethod",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "client.authenticationMethod"
     },
     {
       "name": "oauth2.client.grantType",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "client.grantType"
     },
     {
       "name": "oauth2.provide.tokenUri",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "provide.tokenUri"
     },
     {
       "name": "oauth2.provide.authorizationUri",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "provide.authorizationUri"
     },
     {
       "name": "oauth2.secretKeyLocation",
       "type": "java.lang.String",
-      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.SecurityConfigs",
       "defaultValue": "secretKeyLocation"
     }
   ]

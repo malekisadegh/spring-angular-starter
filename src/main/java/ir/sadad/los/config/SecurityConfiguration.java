@@ -1,6 +1,5 @@
 package ir.sadad.los.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +22,14 @@ import java.util.Base64;
 
 
 @Configuration
-@EnableConfigurationProperties(IntegrationConfigs.class)
+@EnableConfigurationProperties(SecurityConfigs.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private IntegrationConfigs configs;
+  private final SecurityConfigs securityConfigs;
+
+  public SecurityConfiguration(SecurityConfigs configs) {
+    this.securityConfigs = configs;
+  }
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
@@ -61,15 +63,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private ClientRegistration getRegistration() {
     return ClientRegistration.withRegistrationId("sso")
-      .clientId("los-ui-client")
-      .clientSecret("bK4cF1cJ5lF6nH7kG6iI5mN5gL1vB3dP1jF4jC1qB1")
+      .clientId(securityConfigs.getClientId())
+      .clientSecret(securityConfigs.getClientSecret())
       .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-      .redirectUriTemplate("http://localhost:8080/los")
-      .scope("svc-mgmt-indv-lgl-foreign-cust-info")
-      .authorizationUri("http://185.135.30.10:9443/identity/oauth2/auth/authorize")
-      .tokenUri("http://185.135.30.10:9443/identity/oauth2/auth/token")
-      .clientName("los-ui-client")
+      .redirectUriTemplate(securityConfigs.getRedirectUri())
+      .scope(securityConfigs.getClientScope())
+      .authorizationUri(securityConfigs.getAuthorizationUri())
+      .tokenUri(securityConfigs.getTokenUri())
+      .clientName(securityConfigs.getClientName())
       .build();
   }
 
