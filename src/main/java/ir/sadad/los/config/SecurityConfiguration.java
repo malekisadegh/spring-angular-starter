@@ -1,34 +1,33 @@
 package ir.sadad.los.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
+
 import org.springframework.security.web.header.HeaderWriter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import ir.sadad.los.config.CustomAuthorizationRequestResolver;
+
 
 @Configuration
+@EnableConfigurationProperties(IntegrationConfigs.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+  @Autowired
+  private IntegrationConfigs configs;
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
@@ -37,14 +36,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     http
-  /*    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()*/
+      .csrf()
+      .disable()
+      .cors()
+      .and()
       .antMatcher("/**").authorizeRequests()
-      .antMatchers("/", "/login**").permitAll()
+      .antMatchers("/los**").permitAll()
       .anyRequest().authenticated()
       .and()
       .headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
       .addHeaderWriter(headerWriter)
+      .and()
+      .logout().deleteCookies("JSESSIONID")
       .and()
       .oauth2Login()
       .authorizationEndpoint()
@@ -69,4 +72,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .clientName("los-ui-client")
       .build();
   }
+
 }

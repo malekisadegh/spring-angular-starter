@@ -1,0 +1,71 @@
+{
+  "groups": [
+    {
+      "name": "oauth2",
+      "type": "ir.sadad.los.config.IntegrationConfigs",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs"
+    }
+  ],
+  "properties": [
+    {
+      "name": "oauth2.client.secret",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "secret.key"
+    },
+    {
+      "name": "oauth2.client.id",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "client.id"
+    },
+    {
+      "name": "oauth2.client.name",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "client.name"
+    },
+    {
+      "name": "oauth2.client.scope",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "client.scope"
+    },
+    {
+      "name": "oauth2.client.redirectUri",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "client.redirectUri"
+    },
+    {
+      "name": "oauth2.client.authenticationMethod",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "client.authenticationMethod"
+    },
+    {
+      "name": "oauth2.client.grantType",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "client.grantType"
+    },
+    {
+      "name": "oauth2.provide.tokenUri",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "provide.tokenUri"
+    },
+    {
+      "name": "oauth2.provide.authorizationUri",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "provide.authorizationUri"
+    },
+    {
+      "name": "oauth2.secretKeyLocation",
+      "type": "java.lang.String",
+      "sourceType": "ir.sadad.los.config.IntegrationConfigs",
+      "defaultValue": "secretKeyLocation"
+    }
+  ]
+}
