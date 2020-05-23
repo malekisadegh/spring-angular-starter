@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.context.annotation.PropertySource;
 
+import java.util.List;
+
 //${spring.profiles.active}
 //ignoreResourceNotFound=true,
 @Data
@@ -43,5 +45,9 @@ public class SecurityConfigs {
   @Value("${secretKeyLocation:}")
   private String secretKeyLocation;
 
+  @Value("${oauth2.client.user.info.endpoint}")
+  private String userInfoEndpoint;
 
+  @Value("${oauth2.client.user.ExcludedUrls}")
+  private List<String> excludedUrls;
 }

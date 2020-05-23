@@ -1,58 +1,70 @@
 package ir.sadad.los.security;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.http.*;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-@Controller
 public class TokenExtractor {
+
+  public static final String BEARER_TYPE = "Bearer";
 
   public static final String ACCESS_TOKEN = "access_token";
 
-  @RequestMapping(value = "/los", method = RequestMethod.GET)
-  public void getAccessToken(@RequestParam("code") String code) throws JsonProcessingException, IOException {
-    ResponseEntity<String> response = null;
+  public static final String ACCESS_TOKEN_VALUE = "ACCESS_TOKEN_VALUE";
 
-    RestTemplate restTemplate = new RestTemplate();
+  public static final String ACCESS_TOKEN_TYPE = "ACCESS_TOKEN_TYPE";
 
-    String credentials = "los-ui-client:bK4cF1cJ5lF6nH7kG6iI5mN5gL1vB3dP1jF4jC1qB1";
-    String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-    headers.add("Authorization", "Basic " + encodedCredentials);
-
-    HttpEntity<String> request = new HttpEntity<String>(headers);
-
-    String access_token_url = "http://185.135.30.10:9443/identity/oauth2/auth/token";
-    access_token_url += "?code=" + code;
-    access_token_url += "&client_id=los-ui-client";
-    access_token_url += "&redirect_uri=http://localhost:8080/los";
-    access_token_url += "&scope=svc-mgmt-indv-lgl-foreign-cust-info";
-    access_token_url += "&grant_type=authorization_code";
-
-    response = restTemplate.exchange(access_token_url, HttpMethod.POST, request, String.class);
-
-    //Get the Access Token From the recieved JSON response
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode node = mapper.readTree(response.getBody());
-    String token = node.path(ACCESS_TOKEN).asText();
-
-    SecurityContext sc = SecurityContextHolder.getContext();
-
+  public Authentication extract(HttpServletRequest request) {
+    String tokenValue = extractToken(request);
+    if (tokenValue != null) {
+      PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(tokenValue, "");
+      final String authenticationException = (String) request.getAttribute("OAuth2FilterException");
+      boolean authenticated = authenticationException == null || authenticationException.isEmpty();
+      authentication.setAuthenticated(authenticated);
+      return authentication;
+    }
+    return null;
   }
+
+  public Authentication crateAuthentication(String tokenValue) {
+    PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(tokenValue, "");
+    authentication.setAuthenticated(true);
+    return authentication;
+  }
+
+  private String extractToken(HttpServletRequest request) {
+    String token = extractHeaderToken(request);
+    if (token == null) {
+      token = request.getParameter(ACCESS_TOKEN);
+      if (token == null) {
+      } else {
+        request.setAttribute(ACCESS_TOKEN_TYPE, BEARER_TYPE);
+      }
+    }
+    return token;
+  }
+
+  private String extractHeaderToken(HttpServletRequest request) {
+    Enumeration<String> headers = request.getHeaders("Authorization");
+    while (headers.hasMoreElements()) { // typically there is only one (most servers enforce that)
+      String value = headers.nextElement();
+      if ((value.toLowerCase().startsWith(BEARER_TYPE.toLowerCase()))) {
+        String authHeaderValue = value.substring(BEARER_TYPE.length()).trim();
+        // Add this here for the auth details later. Would be better to change the signature of this method.
+        request.setAttribute(ACCESS_TOKEN_TYPE,
+          value.substring(0, BEARER_TYPE.length()).trim());
+        int commaIndex = authHeaderValue.indexOf(',');
+        if (commaIndex > 0) {
+          authHeaderValue = authHeaderValue.substring(0, commaIndex);
+        }
+        return authHeaderValue;
+      }
+    }
+
+    return null;
+  }
+
 
 }
