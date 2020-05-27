@@ -1,5 +1,6 @@
 package ir.sadad.los.config;
 
+import ir.sadad.los.filter.CorsFilter;
 import ir.sadad.los.filter.SpringOAuth2Filter;
 import ir.sadad.los.security.CustomRequestEntityConverter;
 import ir.sadad.los.security.CustomTokenResponseConverter;
@@ -35,10 +36,12 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.security.web.header.HeaderWriter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -60,15 +63,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     HeaderWriter headerWriter = new StaticHeadersWriter(HttpHeaders.AUTHORIZATION, "Basic", Base64.getEncoder().encodeToString(("los-ui-client" + ":" + "bK4cF1cJ5lF6nH7kG6iI5mN5gL1vB3dP1jF4jC1qB1").getBytes()));
 
-
     http
+      //.addFilterBefore(corsFilter(), SessionManagementFilter.class)
       .csrf()
       .disable()
-      .cors()
-      .and()
+      //.cors()
+      //.and()
       //.antMatcher("/**")
       .authorizeRequests()
-      .antMatchers("/los").permitAll()
+      .antMatchers( securityConfigs.getExcludedUrls()).permitAll()
       .antMatchers("/test").hasAuthority("ROLE_CLIENT")
       .anyRequest()
       .authenticated()
@@ -99,6 +102,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
     return new HttpSessionOAuth2AuthorizationRequestRepository();
   }
+
+/*  @Bean
+  CorsFilter corsFilter() {
+    CorsFilter filter = new CorsFilter();
+    return filter;
+  }*/
 
 
   private ClientRegistration getRegistration() {

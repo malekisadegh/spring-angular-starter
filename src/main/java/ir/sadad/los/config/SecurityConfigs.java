@@ -49,5 +49,5 @@ public class SecurityConfigs {
   private String userInfoEndpoint;
 
   @Value("${oauth2.client.user.ExcludedUrls}")
-  private List<String> excludedUrls;
+  private String[] excludedUrls;
 }
