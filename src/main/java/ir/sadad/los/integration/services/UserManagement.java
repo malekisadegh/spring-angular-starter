@@ -29,6 +29,7 @@ public class UserManagement extends RouteBuilder {
       .component("servlet")
       .bindingMode(RestBindingMode.json);
 
+    /*for test call http://localhost:8080/camel/api/bean*/
     rest("/api/")
       .id("api-route")
       .consumes("application/json")
