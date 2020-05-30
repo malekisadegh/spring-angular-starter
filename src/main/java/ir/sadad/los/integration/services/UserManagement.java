@@ -1,9 +1,12 @@
 package ir.sadad.los.integration.services;
 
 import ir.sadad.los.integration.processors.AccessTokenProcessor;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,23 +20,28 @@ public class UserManagement extends RouteBuilder {
   @Override
     public void configure() throws Exception {
 
-      from("direct:start")
-        .process(accessTokenProcessor)
-        .to("log:bar");
+    CamelContext context = new DefaultCamelContext();
 
-    from("restlet:/search")
-      .removeHeaders("CamelHttp*", "CamelHttpMethod")
-      .setHeader(Exchange.HTTP_METHOD, constant("GET"))
-      .setHeader(Exchange.HTTP_PATH, simple("/search"))
-/*      .setHeader(Exchange.HTTP_QUERY, simple("title=${header.title}&limit=${header.limit}&offset=${header.offset}" +
-        "&sort.sorted=${header.sort.sorted}&sort.unsorted=${header.sort.unsorted}&isActive=${header.isActive}"))*/
-      .process(new Processor() {
+    restConfiguration()
+      .contextPath("/camel")
+      .port("8080")
+      .enableCORS(true)
+      .component("servlet")
+      .bindingMode(RestBindingMode.json);
 
-        @Override
-        public void process(Exchange exchange) throws Exception {
-          System.out.println("test is .............");
-        }
-      })
-      .to("direct:ExecuteRequest");
+    rest("/api/")
+      .id("api-route")
+      .consumes("application/json")
+      .get("/bean")
+      .bindingMode(RestBindingMode.json_xml)
+      .to("direct:remoteService");
+
+    from("direct:remoteService")
+      .routeId("direct-route")
+      .tracing()
+      .process(accessTokenProcessor)
+      .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
+
+
     }
 }

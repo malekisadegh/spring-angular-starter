@@ -87,12 +87,11 @@
       <artifactId>camel-servlet-starter</artifactId>
       <version>${camel.version}</version>
     </dependency>
-    <!--
-        <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>camel-jackson-starter</artifactId>
-          <version>${camel.version}</version>
-        </dependency>-->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jackson-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-http</artifactId>
@@ -103,11 +102,16 @@
       <artifactId>camel-restlet</artifactId>
       <version>${camel.version}</version>
     </dependency>
-    <!--    <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>camel-swagger-java-starter</artifactId>
-          <version>${camel.version}</version>
-        </dependency>-->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-swagger-java-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jaxb-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
     <!--    <dependency>
           <groupId>org.apache.camel</groupId>
           <artifactId>camel-spring-boot-dependencies</artifactId>

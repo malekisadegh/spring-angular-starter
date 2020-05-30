@@ -42,12 +42,4 @@ public class LosApplication implements InitializingBean {
       + "profiles at the same time.");
   }
 
-  @Bean
-  ServletRegistrationBean servletRegistrationBean() {
-    ServletRegistrationBean servlet = new ServletRegistrationBean
-      (new CamelHttpTransportServlet(), commonConfigs.getServicesBaseURI() + "/*");
-    servlet.setName("CamelServlet");
-    return servlet;
-  }
-
 }

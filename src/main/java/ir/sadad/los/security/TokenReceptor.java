@@ -85,7 +85,7 @@ public class TokenReceptor {
 
   }
 
-  @RequestMapping(value = "/search", method = RequestMethod.GET)
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
   public Object securityTest(HttpServletRequest httpServletRequest) throws IOException {
     HttpSession session = httpServletRequest.getSession(true);
        return session;

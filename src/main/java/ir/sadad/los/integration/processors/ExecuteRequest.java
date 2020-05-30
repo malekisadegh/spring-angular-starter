@@ -32,7 +32,7 @@ public class ExecuteRequest extends RouteBuilder {
       .process(exceptionHandlerProcessor)
       .continued(true);
 
-    from("direct:ExecuteRequest_EB")
+    from("direct:ExecuteRequest")
       .setHeader("Accept", constant("application/json"))
       .process(restHelper)
       .process(accessTokenProcessor)
