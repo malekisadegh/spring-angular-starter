@@ -20,21 +20,24 @@ import java.util.Map;
 @EqualsAndHashCode(of = "name")
 public class BmiOAuth2User implements OAuth2User {
 
-    @Singular
-    private Map<String, Object> attributes;
+  @Singular
+  private Map<String, Object> attributes;
 
-    @Singular
-    private Collection<? extends GrantedAuthority> authorities;
+  @Singular
+  private Collection<? extends GrantedAuthority> authorities;
 
-    private String name;
+  private String name;
 
-    public BmiOAuth2User(Map<String, Object> attributes) {
-        Assert.notNull(attributes, "attributes of BmiOAuth2User object must not null");
-        this.attributes = attributes;
-        this.authorities = extractAuthorities(attributes);
-        Assert.notNull(getSsn(), "SSN of BmiOAuth2User object must not null");
-        this.name = getSsn();
-    }
+  private String token;
+
+  public BmiOAuth2User(Map<String, Object> attributes) {
+    Assert.notNull(attributes, "attributes of BmiOAuth2User object must not null");
+    this.attributes = attributes;
+    this.authorities = extractAuthorities(attributes);
+    Assert.notNull(getSsn(), "SSN of BmiOAuth2User object must not null");
+    this.name = getSsn();
+    this.token = getToken();
+  }
 
   public Collection<? extends GrantedAuthority> extractAuthorities(Map<String, Object> attributes) {
     String role = "ROLE_ANONYMOUS";
@@ -43,46 +46,49 @@ public class BmiOAuth2User implements OAuth2User {
   }
 
 
+  public String getIss() {
+    return (String) attributes.get("iss");
+  }
 
-    public String getIss() {
-        return (String) attributes.get("iss");
-    }
+  public String getAud() {
+    return (String) attributes.get("aud");
+  }
 
-    public String getAud() {
-        return (String) attributes.get("aud");
-    }
+  public Long getExp() {
+    return (Long) attributes.get("exp");
+  }
 
-    public Long getExp() {
-        return (Long) attributes.get("exp");
-    }
+  public Long getNbf() {
+    return (Long) attributes.get("nbf");
+  }
 
-    public Long getNbf() {
-        return (Long) attributes.get("nbf");
-    }
+  public String getClientId() {
+    return (String) attributes.get("client_id");
+  }
 
-    public String getClientId() {
-        return (String) attributes.get("client_id");
-    }
+  public String getRole() {
+    return (String) attributes.get("role");
+  }
 
-    public String getRole() {
-        return (String) attributes.get("role");
-    }
+  public String getSerial() {
+    return (String) attributes.get("serial");
+  }
 
-    public String getSerial() {
-        return (String) attributes.get("serial");
-    }
+  public String getSsn() {
+    return (String) attributes.get("ssn");
+  }
 
-    public String getSsn() {
-        return (String) attributes.get("ssn");
-    }
+  public String getToken() {
+    return (String) attributes.get("token");
+  }
 
-    public List<String> getScopes() {
-        return (List<String>) attributes.get("scopes");
-    }
+  public List<String> getScopes() {
+    return (List<String>) attributes.get("scopes");
+  }
 
-    public GrantType getGrant() {
-        return (GrantType) attributes.get("grant");
-    }
+  public GrantType getGrant() {
+    return (GrantType) attributes.get("grant");
+  }
 
 
 }

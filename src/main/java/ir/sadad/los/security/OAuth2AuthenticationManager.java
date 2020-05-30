@@ -65,16 +65,18 @@ public class OAuth2AuthenticationManager implements AuthenticationManager {
 
   private boolean hasAnonymousRole(Authentication authentication) throws JsonProcessingException {
     if (authentication instanceof PreAuthenticatedAuthenticationToken) {
-      String details = decodeToken((String) authentication.getPrincipal());
-      oAuth2User = convert(details);
+      String token = (String) authentication.getPrincipal();
+      String details = decodeToken(token);
+      oAuth2User = convert(details, token);
       return oAuth2User.getAuthorities().contains("ROLE_ANONYMOUS");
     }
     return false;
   }
 
-  private BmiOAuth2User convert(String str) throws JsonProcessingException {
-    HashMap<String, Object> result = new ObjectMapper().readValue(str, HashMap.class);
-    return new  BmiOAuth2User(result);
+  private BmiOAuth2User convert(String detail, String token) throws JsonProcessingException {
+    HashMap<String, Object> result = new ObjectMapper().readValue(detail, HashMap.class);
+    result.put("token", token);
+    return new BmiOAuth2User(result);
   }
 
   private String decodeToken(String jwtToken) {
