@@ -41,7 +41,7 @@
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
-              "baseHref": "/los/",
+              "baseHref": "/portal/",
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,

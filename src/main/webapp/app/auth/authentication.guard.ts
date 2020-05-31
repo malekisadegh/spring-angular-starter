@@ -16,7 +16,7 @@ export class AuthenticationGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return true;
-    this.isLoggedIn = this.credentialsService.checkCredentials();
+    /*  this.isLoggedIn = this.credentialsService.checkCredentials();
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     if (this.isLoggedIn) {
@@ -27,6 +27,6 @@ export class AuthenticationGuard implements CanActivate {
     } else {
       //Not authenticated, redirecting and adding redirect url...
       this.credentialsService.getAuthorizationCode();
-    }
+    }*/
   }
 }

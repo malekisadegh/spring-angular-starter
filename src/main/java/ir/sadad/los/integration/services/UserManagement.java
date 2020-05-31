@@ -23,13 +23,13 @@ public class UserManagement extends RouteBuilder {
     CamelContext context = new DefaultCamelContext();
 
     restConfiguration()
-      .contextPath("/camel")
+      .contextPath("/services")
       .port("8080")
       .enableCORS(true)
       .component("servlet")
       .bindingMode(RestBindingMode.json);
 
-    /*for test call http://localhost:8080/camel/api/bean*/
+    /*for test call http://localhost:8080/rest/api/bean*/
     rest("/api/")
       .id("api-route")
       .consumes("application/json")

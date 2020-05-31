@@ -10,8 +10,12 @@
   </parent>
 
   <groupId>ir.bmi.los</groupId>
-  <artifactId>los</artifactId>
+  <artifactId>portal</artifactId>
   <version>1.1.1</version>
+  <!--JAR MODE -->
+ <!-- <packaging>jar</packaging>-->
+
+  <!--WAR MODE -->
   <packaging>war</packaging>
   <name>los</name>
   <description>loan operation system</description>
@@ -192,6 +196,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
+      <!--comment in JAR MODE -->
       <scope>provided</scope>
     </dependency>
 

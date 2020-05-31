@@ -50,4 +50,7 @@ public class SecurityConfigs {
 
   @Value("${oauth2.client.user.ExcludedUrls}")
   private String[] excludedUrls;
+
+  @Value("${oauth2.client.logoutSuccessUrl}")
+  private String logoutSuccessUrl;
 }

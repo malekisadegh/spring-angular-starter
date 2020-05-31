@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build --prod",
+    "build:w": "ng build --output-path dist --watch",
     "start": "ng serve --proxy-config proxy.conf.js",
     "dev": "ng serve",
     "serve:sw": "npm run build -s && npx http-server ./src/main/webapp -p 4200",

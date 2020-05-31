@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -71,8 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       //.and()
       //.antMatcher("/**")
       .authorizeRequests()
-      .antMatchers( securityConfigs.getExcludedUrls()).permitAll()
-      .antMatchers("/test").hasAuthority("ROLE_CLIENT")
+      .antMatchers("/home").hasAuthority("ROLE_CLIENT")
+      .antMatchers( HttpMethod.GET,securityConfigs.getExcludedUrls()).permitAll()
       .anyRequest()
       .authenticated()
       .and()
@@ -82,6 +83,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
       //.addFilterAfter(new SpringOAuth2Filter(),SecurityContextPersistenceFilter.class)
       .logout().deleteCookies("JSESSIONID")
+      .logoutSuccessUrl(securityConfigs.getLogoutSuccessUrl())
       //.and()
       //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and()
