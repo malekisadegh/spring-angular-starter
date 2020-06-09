@@ -26,6 +26,7 @@ export class CredentialsService {
     const authority = btoa(environment.oath.clientId + ':' + environment.oath.clientSecret);
     const _headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
       Authorization: 'Basic' + ' ' + authority,
     });
     this._http.post(environment.oath.accessTokenUri, body.toString(), { headers: _headers }).subscribe(

@@ -10,7 +10,7 @@ const proxyConfig = [
   {
     context: '/api',
     pathRewrite: { '^/api': '' },
-    target: 'http://api.sadad.io',
+    target: 'http://185.135.30.10:9443',
     changeOrigin: true,
     secure: false,
   },
