@@ -9,9 +9,13 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>ir.sadad.los</groupId>
-  <artifactId>los</artifactId>
-  <version>1.0.0</version>
+  <groupId>ir.bmi.los</groupId>
+  <artifactId>portal</artifactId>
+  <version>1.1.1</version>
+  <!--JAR MODE -->
+ <!-- <packaging>jar</packaging>-->
+
+  <!--WAR MODE -->
   <packaging>war</packaging>
   <name>los</name>
   <description>loan operation system</description>
@@ -22,6 +26,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <node.version>v10.16.0</node.version>
     <npm.version>6.9.0</npm.version>
+    <camel.version>2.22.0</camel.version><!--3.0.0-RC3-->
     <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
     <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
 
@@ -29,22 +34,12 @@
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-
-
-
-  <!--  <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>-->
+    </dependency>
     <!-- Spring Security -->
-
-<!--    <dependency>
+    <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-client</artifactId>
     </dependency>
@@ -88,10 +83,59 @@
       <groupId>ir.bmi.identity</groupId>
       <artifactId>client-security-api</artifactId>
       <version>3.5.0</version>
-    </dependency>-->
-
-
+    </dependency>
     <!-- Spring Security -->
+    <!-- Apache Camel  -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-servlet-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jackson-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-restlet</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-swagger-java-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jaxb-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <!--    <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-spring-boot-dependencies</artifactId>
+          <version>${camel.version}</version>
+          <type>pom</type>
+          &lt;!&ndash;   <scope>import</scope>&ndash;&gt;
+        </dependency>-->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-spring-boot-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+
+    <!-- Apache Camel  -->
+
+    <!--   <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web-services</artifactId>
+       </dependency>-->
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -104,38 +148,43 @@
       </exclusions>
     </dependency>
 
-<!--    <dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
-    </dependency>-->
-
-   <!-- <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
-    </dependency>-->
-
-<!--    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-    </dependency>-->
-
-    <!--<dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>-->
-
- <!--   <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-oauth2-client</artifactId>
-    </dependency>-->
-
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
+      <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-autoconfigure</artifactId>
+     </dependency>-->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+
+
+    <!--  <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+      </dependency>-->
 
     <dependency>
       <groupId>commons-configuration</groupId>
@@ -147,6 +196,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
+      <!--comment in JAR MODE -->
       <scope>provided</scope>
     </dependency>
 
@@ -179,7 +229,6 @@
         <artifactId>git-commit-id-plugin</artifactId>
         <configuration>
           <failOnNoGitDirectory>false</failOnNoGitDirectory>
-          <offline>true</offline>
         </configuration>
       </plugin>
 
@@ -198,6 +247,15 @@
             </path>
           </annotationProcessorPaths>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <!--<configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+        </configuration>-->
       </plugin>
 
     </plugins>
@@ -231,10 +289,10 @@
           <optional>true</optional>
         </dependency>
 
-        <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-        </dependency>
+        <!--    <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+            </dependency>-->
 
         <dependency>
           <groupId>org.springframework.boot</groupId>
@@ -242,36 +300,34 @@
           <optional>true</optional>
         </dependency>
 
-       <!-- <dependency>
+        <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-oauth2-client</artifactId>
-        </dependency>-->
+        </dependency>
 
-      <!--  <dependency>
+        <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-test</artifactId>
           <scope>test</scope>
-        </dependency>-->
+        </dependency>
+
+        <!-- <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-autoconfigure</artifactId>
+         </dependency>-->
 
         <dependency>
           <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-autoconfigure</artifactId>
+          <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
- <!--       <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
-
-     <!--   <dependency>
+        <dependency>
           <groupId>org.hibernate</groupId>
           <artifactId>hibernate-validator</artifactId>
           <version>6.1.0.Final</version>
-        </dependency>-->
+        </dependency>
 
       </dependencies>
-      <properties>
-      </properties>
     </profile>
     <profile>
       <id>prod</id>

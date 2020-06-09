@@ -1,7 +1,0 @@
-spring:
-  banner:
-    location: classpath:bannername.txt
-  application:
-    name: los
-server:
-  port: 8080
