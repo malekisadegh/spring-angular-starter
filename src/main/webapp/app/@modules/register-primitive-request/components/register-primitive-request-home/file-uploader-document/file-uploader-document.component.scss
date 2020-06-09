@@ -1,0 +1,12 @@
+input[type="file"] {
+  display: none;
+}
+
+.link-label:hover {
+  text-decoration: underline;
+  text-shadow: -1px 0 #e6e6e6, 0 1px #e6e6e6, 1px 0 #e6e6e6, 0 -1px #e6e6e6;
+}
+
+.cell-width {
+  min-width: 150px;
+}

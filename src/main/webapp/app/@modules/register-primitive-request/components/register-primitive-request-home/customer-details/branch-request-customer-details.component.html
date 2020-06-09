@@ -1,0 +1,167 @@
+<mat-card class="col-md-12 col-lg-12">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.branch.code' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong> {{ customerDetailsModel.branchCode }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.customer.national.id' | translate }}:‌</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.cif }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.customer.national.foreign' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ foreignChecker(customerDetailsModel.foreignersStatus) }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div *ngIf="checker()">
+        <div class="row">
+          <div class="col-sm-5">{{ 'label.public.name' | translate }}:</div>
+          <div class="col-sm-7">
+            <strong>{{ customerDetailsModel.firstName }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.last.name' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.lastName }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div *ngIf="checker()">
+        <div class="row">
+          <div class="col-sm-5">{{ 'label.public.name.father' | translate }}:</div>
+          <div class="col-sm-7">
+            <strong>{{ customerDetailsModel.fatherName }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.customer.number' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.cif }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.customer.type' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.customerType }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.registration.number.only' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.identityDocumentNumber }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.registration.date.only' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.birthDate }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.registration.place.only' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.identityDocumentIssuingPlace }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.identification.serial.letter' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.identityDocumentLiteralSeries }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.identification.serial.digit' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.identityDocumentSerial }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.address' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.address }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.customer.national.id' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.nationalIdentifier }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.city.code' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.cityCode }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.post.code' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.postalCode }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-5">{{ 'label.public.mobile' | translate }}:</div>
+        <div class="col-sm-7">
+          <strong>{{ customerDetailsModel.mobileNumber | replace: ',':', ' }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,9 @@
+{
+  "inquiryService": "http://192.168.33.81:8080/los/api",
+  "minInterestRate": "15.00",
+  "maxInterestRate": "20.00",
+  "minDiscountRate": "10.00",
+  "maxDiscountRate": "20.00",
+  "unitId": "222",
+  "userId": "111"
+}

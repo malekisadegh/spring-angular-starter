@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="deadlineAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.deadline.amount' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlineAmount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlineInterestRate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.deadline.rate.interest' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlineInterestRate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlinePenaltyRate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.deadline.rate.penalty' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlinePenaltyRate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlineOriginalAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.deadline.rate.original' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlineOriginalAmount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlineProfitAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.deadline.rate.profit' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlineProfitAmount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlinePenaltyAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.deadline.amount.penalty' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlinePenaltyAmount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlineAdvancedReceivedAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ 'label.deadline.amount.received.advanced' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlineAdvancedReceivedAmount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deadlineAdvancedReceivedPercent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ 'label.deadline.percent.received.advanced' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.deadlineAdvancedReceivedPercent }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>

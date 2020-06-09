@@ -1,0 +1,61 @@
+<!-- Body -->
+<div mat-dialog-content>
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="indexColumn">
+                  <th mat-header-cell *matHeaderCellDef class="cell-width">{{ 'label.row' | translate }}</th>
+                  <td mat-cell *matCellDef="let row; let rIndex = index" class="cell-width">{{ rIndex + 1 }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="docType">
+                  <th mat-header-cell *matHeaderCellDef class="cell-width">
+                    {{ 'label.attachment.type' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="cell-width">
+                    {{ element.docSelect ? element.docSelect.value : null }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef class="cell-width">
+                    {{ 'label.public.file.type' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="cell-width">{{ element.type }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="file">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'label.operation' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">
+                    <img
+                      height="100"
+                      width="100"
+                      [src]="element.fileSelectString"
+                      (click)="viewFile(element.fileSelectString)"
+                      class="pointer"
+                    />
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <br />
+</div>
+
+<!-- Footer -->
+<div mat-dialog-actions>
+  <button mat-fab color="warn" matTooltip="{{ 'return' | translate }}" matTooltipPosition="left" (click)="close()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

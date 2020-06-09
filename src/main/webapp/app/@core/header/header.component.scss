@@ -54,3 +54,9 @@
   border: none;
   color: #fff;
 }
+.btn-logout {
+  color: #fff;
+  &:hover {
+    text-decoration: none;
+  }
+}

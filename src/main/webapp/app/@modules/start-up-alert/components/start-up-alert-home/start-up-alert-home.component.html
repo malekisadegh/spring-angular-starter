@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{ 'label.public.law.title' | translate }}</h1>
+<div mat-dialog-content>
+  <div [innerHTML]="law | sanitizeHtml"></div>
+</div>
+<div mat-dialog-actions>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <mat-checkbox [(ngModel)]="startUpForm">{{ 'label.public.law.accept' | translate }}</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <button
+            mat-fab
+            color="primary"
+            type="submit"
+            matTooltip="{{ 'insert' | translate }}"
+            matTooltipPosition="left"
+            (click)="submitLaw()"
+          >
+            <mat-icon>done_all</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

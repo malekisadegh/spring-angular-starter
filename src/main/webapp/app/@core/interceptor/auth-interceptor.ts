@@ -14,14 +14,16 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + this.cookieService.get('access_token')),
       });
+      request = request.clone({ headers: request.headers.set('content-type', 'application/json') });
     }
-    // request = request.clone({headers: request.headers.set('Access-Control-Allow-Origin', '*')});
-
+    request = request.clone({ headers: request.headers.set('Access-Control-Allow-Origin', '*') });
+    request = request.clone({
+      headers: request.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'),
+    });
     request = request.clone({
       headers: request.headers.set(
-        'Access-Control-Allow-Origin',
-        'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, ' +
-          'Access-Control-Request-Method, Access-Control-Request-Headers, X-Access-Token, XKey, Authorization'
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, content-type, Authorization, Accept'
       ),
     });
 

@@ -1,37 +1,37 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {SelectMapModel} from '@shared/models/public/select-map.model';
-import {StaticValueService} from '@shared/util/static-value.service';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {CustomerDetailsService} from '@core/services/customer/customer-details.service';
-import {CustomerDetailsModel} from '@shared/models/customer-details/customer-details.model';
-import {NotificationService} from '@core/services/notification.service';
-import {BranchRequestCustomerDetailsComponent} from '@modules/register-primitive-request/components/register-primitive-request-home/customer-details/branch-request-customer-details.component';
-import {MatDialog} from '@angular/material/dialog';
-import {FacilityInfoModel} from '@shared/models/mock/facility-info.model';
-import {CommonDeleteComponent} from '@modules/register-primitive-request/components/common-delete/common-delete.component';
-import {FileUploaderDocumentComponent} from '@modules/register-primitive-request/components/register-primitive-request-home/file-uploader-document/file-uploader-document.component';
-import {ParamModel} from '@shared/models/public/param.model';
-import {ParamService} from '@core/services/param.service';
-import {PublicUtilityService} from '@shared/util/public-utility.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {TranslateService} from '@ngx-translate/core';
-import {CollateralDocumentModel} from '@shared/models/collateral/collateral-document.model';
-import {InitialRequestService} from '@core/services/request/initial-request.service';
-import {ViewDocumentAttachmentComponent} from '@modules/register-primitive-request/components/register-primitive-request-home/view-document-attachment/view-document-attachment.component';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SelectMapModel } from '@shared/models/public/select-map.model';
+import { StaticValueService } from '@shared/util/static-value.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { CustomerDetailsService } from '@core/services/customer/customer-details.service';
+import { CustomerDetailsModel } from '@shared/models/customer-details/customer-details.model';
+import { NotificationService } from '@core/services/notification.service';
+import { BranchRequestCustomerDetailsComponent } from '@modules/register-primitive-request/components/register-primitive-request-home/customer-details/branch-request-customer-details.component';
+import { MatDialog } from '@angular/material/dialog';
+import { FacilityInfoModel } from '@shared/models/mock/facility-info.model';
+import { CommonDeleteComponent } from '@modules/register-primitive-request/components/common-delete/common-delete.component';
+import { FileUploaderDocumentComponent } from '@modules/register-primitive-request/components/register-primitive-request-home/file-uploader-document/file-uploader-document.component';
+import { ParamModel } from '@shared/models/public/param.model';
+import { ParamService } from '@core/services/param.service';
+import { PublicUtilityService } from '@shared/util/public-utility.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
+import { CollateralDocumentModel } from '@shared/models/collateral/collateral-document.model';
+import { InitialRequestService } from '@core/services/request/initial-request.service';
+import { ViewDocumentAttachmentComponent } from '@modules/register-primitive-request/components/register-primitive-request-home/view-document-attachment/view-document-attachment.component';
 import * as printJS from 'print-js';
-import {AccountInfoModel} from "@shared/models/customer-details/account-info.model";
-import {DateTimeService} from "@core/services/local/date-time.service";
-import {Observable} from "rxjs";
-import {EconomicSectionModel} from "@shared/models/collateral/economic-section.model";
+import { AccountInfoModel } from '@shared/models/customer-details/account-info.model';
+import { DateTimeService } from '@core/services/local/date-time.service';
+import { Observable } from 'rxjs';
+import { EconomicSectionModel } from '@shared/models/collateral/economic-section.model';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
-import {DrlRequestModel} from "@shared/models/simple-request/drl-request.model";
-import {DrlRequestContractInfoListModel} from "@shared/models/simple-request/drl-request-contract-info-list.model";
-import {ShowResponseCodeComponent} from "@modules/simple-request/components/simple-request-home/show-response-code/show-response-code.component";
-import {PropertiesService} from "@core/services/local/properties.service";
+import { DrlRequestModel } from '@shared/models/simple-request/drl-request.model';
+import { DrlRequestContractInfoListModel } from '@shared/models/simple-request/drl-request-contract-info-list.model';
+import { ShowResponseCodeComponent } from '@modules/simple-request/components/simple-request-home/show-response-code/show-response-code.component';
+import { PropertiesService } from '@core/services/local/properties.service';
 
 @Component({
   selector: 'app-simple-request-home',
@@ -39,7 +39,6 @@ import {PropertiesService} from "@core/services/local/properties.service";
   styleUrls: ['./simple-request-home.component.scss'],
 })
 export class SimpleRequestHomeComponent implements OnInit {
-
   componentTitle = 'simple-request';
 
   customerNumberLabel: string;
@@ -65,8 +64,8 @@ export class SimpleRequestHomeComponent implements OnInit {
   filteredOptionsActivityType: Observable<EconomicSectionModel[]>;
   filteredOptionsActivityField: Observable<EconomicSectionModel[]>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource: any;
   displayedColumns: string[] = [
@@ -87,10 +86,11 @@ export class SimpleRequestHomeComponent implements OnInit {
     private notificationService: NotificationService,
     public dialog: MatDialog,
     private paramService: ParamService,
-    private translate: TranslateService, private properties: PropertiesService,
-    private initialRequestService: InitialRequestService, private dateTimeService: DateTimeService
-  ) {
-  }
+    private translate: TranslateService,
+    private properties: PropertiesService,
+    private initialRequestService: InitialRequestService,
+    private dateTimeService: DateTimeService
+  ) {}
 
   ngOnInit() {
     // Related with customerType In simpleRequestForm Form
@@ -101,7 +101,7 @@ export class SimpleRequestHomeComponent implements OnInit {
     this.simpleRequestForm = new FormGroup({
       customerType: new FormControl(StaticValueService.customerTypeList[0], [Validators.required]),
       customerNumber: new FormControl(null, [Validators.required, Validators.minLength(10)]),
-      customerName: new FormControl({value: null, disabled: true}),
+      customerName: new FormControl({ value: null, disabled: true }),
 
       paramEconomicSector: new FormControl(null, [Validators.required]),
       paramSubEconomicSector: new FormControl(null, [Validators.required]),
@@ -117,8 +117,8 @@ export class SimpleRequestHomeComponent implements OnInit {
       jarRemainAmntExtra: new FormControl(null, [Validators.required]),
 
       accountSelected: new FormControl(null, [Validators.required]),
-      accountSelectedType: new FormControl({value: null, disabled: true}),
-      accountSelectedOpenDate: new FormControl({value: null, disabled: true}),
+      accountSelectedType: new FormControl({ value: null, disabled: true }),
+      accountSelectedOpenDate: new FormControl({ value: null, disabled: true }),
       contractType: new FormControl(null, [Validators.required]),
       remainingDebt: new FormControl(null, [Validators.required]),
 
@@ -130,7 +130,7 @@ export class SimpleRequestHomeComponent implements OnInit {
       remainingDebtBasedProfit: new FormControl(null, [Validators.required]),
       remainingDebtBasedCommitment: new FormControl(null, [Validators.required]),
       grantedDate: new FormControl(null, [Validators.required]),
-      description: new FormControl(null)
+      description: new FormControl(null),
     });
 
     this.detailsForm = new FormGroup({
@@ -163,7 +163,8 @@ export class SimpleRequestHomeComponent implements OnInit {
 
     this.paramService.findEconomicSection(0, null).subscribe((response) => {
       this.isicMainEconomicCodeList = response.body;
-      this.filteredOptionsMainEconomic = this.simpleRequestForm.controls['paramEconomicSector'].valueChanges.startWith(null)
+      this.filteredOptionsMainEconomic = this.simpleRequestForm.controls['paramEconomicSector'].valueChanges
+        .startWith(null)
         .map((value: any) => this._filterOne(value));
     });
 
@@ -203,8 +204,7 @@ export class SimpleRequestHomeComponent implements OnInit {
       .findEconomicSection(1, this.simpleRequestForm.value['paramEconomicSector'].id)
       .subscribe((response) => {
         this.isicActivityTypeCodeList = response.body;
-        this.filteredOptionsActivityType = this.simpleRequestForm.controls['paramSubEconomicSector']
-          .valueChanges
+        this.filteredOptionsActivityType = this.simpleRequestForm.controls['paramSubEconomicSector'].valueChanges
           .startWith(null)
           .map((value: any) => this._filterTwo(value));
       });
@@ -237,8 +237,7 @@ export class SimpleRequestHomeComponent implements OnInit {
       .findEconomicSection(2, this.simpleRequestForm.value['paramSubEconomicSector'].id)
       .subscribe((response: HttpResponse<any>) => {
         this.isicActivityFieldCodeList = response.body;
-        this.filteredOptionsActivityField = this.simpleRequestForm.controls['paramSubISICSector']
-          .valueChanges
+        this.filteredOptionsActivityField = this.simpleRequestForm.controls['paramSubISICSector'].valueChanges
           .startWith(null)
           .map((value: any) => this._filterThee(value));
       });
@@ -280,7 +279,10 @@ export class SimpleRequestHomeComponent implements OnInit {
   }
 
   customerNumberLabelFn() {
-    if (this.simpleRequestForm.get('customerType').value && this.simpleRequestForm.get('customerType').value.value === '1') {
+    if (
+      this.simpleRequestForm.get('customerType').value &&
+      this.simpleRequestForm.get('customerType').value.value === '1'
+    ) {
       this.customerNumberLabel = this.translate.instant('label.public.national.code.real');
     } else {
       this.customerNumberLabel = this.translate.instant('label.public.national.code.legal');
@@ -299,7 +301,10 @@ export class SimpleRequestHomeComponent implements OnInit {
             if (response.status === 200) {
               this.customerDetails = response.body;
               this.simpleRequestForm.patchValue({
-                customerName: this.customerDetails.customerTypeCode === '01' ? this.customerDetails.firstName + ' ' + this.customerDetails.lastName : this.customerDetails.lastName
+                customerName:
+                  this.customerDetails.customerTypeCode === '01'
+                    ? this.customerDetails.firstName + ' ' + this.customerDetails.lastName
+                    : this.customerDetails.lastName,
               });
             } else {
               this.notificationService.showError(this.translate.instant('alert.value.not.found.display'));
@@ -315,16 +320,16 @@ export class SimpleRequestHomeComponent implements OnInit {
           }
         );
 
-      this.customerDetailsService.fetchAccountInfo(this.simpleRequestForm.get('customerNumber').value)
-        .subscribe(
-          (response: HttpResponse<any>) => {
-            if (response.status === 200) {
-              this.accountList = response.body;
-            }
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error);
-          });
+      this.customerDetailsService.fetchAccountInfo(this.simpleRequestForm.get('customerNumber').value).subscribe(
+        (response: HttpResponse<any>) => {
+          if (response.status === 200) {
+            this.accountList = response.body;
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      );
     }
   }
 
@@ -451,7 +456,7 @@ export class SimpleRequestHomeComponent implements OnInit {
   openAddDocumentFileDialog(element: any) {
     const dialogRef = this.dialog.open(FileUploaderDocumentComponent, {
       width: 'auto',
-      data: {dataSource: element, paramList: this.paramDocumentList},
+      data: { dataSource: element, paramList: this.paramDocumentList },
     });
 
     dialogRef.afterClosed().subscribe((response) => {
@@ -578,7 +583,7 @@ export class SimpleRequestHomeComponent implements OnInit {
       maxWidth: 800,
       targetStyles: '*',
       style: '@page { size: A4;}',
-      ignoreElements: ['AddButton', 'pageviewButton', 'deleteButton', 'insert_drive_fileButton', 'image_searchButton']
+      ignoreElements: ['AddButton', 'pageviewButton', 'deleteButton', 'insert_drive_fileButton', 'image_searchButton'],
     });
   }
 
@@ -587,33 +592,37 @@ export class SimpleRequestHomeComponent implements OnInit {
   printTest() {
     let myWindow = window.open();
 
-    myWindow.document.write('<html><head>' +
-      '<style>' +
-      'body{' +
-      '   font-family: vazir !important; ' +
-      '   direction: rtl' +
-      '}' +
-      'table, th, td {\n' +
-      '    border: 1px solid black;\n' +
-      '    font-size: medium;\n' +
-      '  }\n' +
-      '\n' +
-      '  table {\n' +
-      '    border-collapse: collapse;\n' +
-      '    width: 100%;\n' +
-      '  }\n' +
-      '\n' +
-      '  td, th {\n' +
-      '    border: 1px solid #dddddd;\n' +
-      '    text-align: right;\n' +
-      '    padding: 8px;\n' +
-      '  }\n' +
-      '\n' +
-      '  tr:nth-child(even) {\n' +
-      '    background-color: #dddddd;\n' +
-      '' +
-      '}</style>' +
-      '<title>' + 'فرم ثبت درخواست ' + '</title>');
+    myWindow.document.write(
+      '<html><head>' +
+        '<style>' +
+        'body{' +
+        '   font-family: vazir !important; ' +
+        '   direction: rtl' +
+        '}' +
+        'table, th, td {\n' +
+        '    border: 1px solid black;\n' +
+        '    font-size: medium;\n' +
+        '  }\n' +
+        '\n' +
+        '  table {\n' +
+        '    border-collapse: collapse;\n' +
+        '    width: 100%;\n' +
+        '  }\n' +
+        '\n' +
+        '  td, th {\n' +
+        '    border: 1px solid #dddddd;\n' +
+        '    text-align: right;\n' +
+        '    padding: 8px;\n' +
+        '  }\n' +
+        '\n' +
+        '  tr:nth-child(even) {\n' +
+        '    background-color: #dddddd;\n' +
+        '' +
+        '}</style>' +
+        '<title>' +
+        'فرم ثبت درخواست ' +
+        '</title>'
+    );
     myWindow.document.write('</head><body>');
 
     myWindow.document.write('<div align="left">شماره: </div>');
@@ -662,17 +671,37 @@ export class SimpleRequestHomeComponent implements OnInit {
 
     myWindow.document.write('<br/>');
 
-    let fe = this.detailsForm.get('actionsTakenOnCollateral').value ? this.detailsForm.get('actionsTakenOnCollateral').value : '';
-    myWindow.document.write('<label for="actionsTakenOnCollateral">' + this.translate.instant('label.collateral.action.taken') + '</label><br/>' +
-      '<p id="actionsTakenOnCollateral" style="word-break: break-all; width: 80%;">' + fe + '</p><br/><br/><br/>');
+    let fe = this.detailsForm.get('actionsTakenOnCollateral').value
+      ? this.detailsForm.get('actionsTakenOnCollateral').value
+      : '';
+    myWindow.document.write(
+      '<label for="actionsTakenOnCollateral">' +
+        this.translate.instant('label.collateral.action.taken') +
+        '</label><br/>' +
+        '<p id="actionsTakenOnCollateral" style="word-break: break-all; width: 80%;">' +
+        fe +
+        '</p><br/><br/><br/>'
+    );
 
     fe = this.detailsForm.get('mobile').value ? this.detailsForm.get('mobile').value : '';
-    myWindow.document.write('<label for="mobile">' + this.translate.instant('label.public.mobile') + '</label><br/>' +
-      '<input type="text" id="mobile" style="border: none;" value="' + fe + '"><br/><br/><br/><br/>');
+    myWindow.document.write(
+      '<label for="mobile">' +
+        this.translate.instant('label.public.mobile') +
+        '</label><br/>' +
+        '<input type="text" id="mobile" style="border: none;" value="' +
+        fe +
+        '"><br/><br/><br/><br/>'
+    );
 
     fe = this.detailsForm.get('details').value ? this.detailsForm.get('details').value : '';
-    myWindow.document.write('<label for="details">' + this.translate.instant('label.details') + '</label><br/>' +
-      '<p id="details" style="word-break: break-all; width: 80%;">' + fe + '</p><br/><br/><br/>');
+    myWindow.document.write(
+      '<label for="details">' +
+        this.translate.instant('label.details') +
+        '</label><br/>' +
+        '<p id="details" style="word-break: break-all; width: 80%;">' +
+        fe +
+        '</p><br/><br/><br/>'
+    );
 
     myWindow.document.write('</body></html>');
 
@@ -686,14 +715,17 @@ export class SimpleRequestHomeComponent implements OnInit {
   castToDrlRequestModel(facilityList: FacilityInfoModel[]) {
     let drlRequest = new DrlRequestModel();
 
-    drlRequest.userId=this.properties.data.userId;
-    drlRequest.unitId=this.properties.data.unitId;
+    drlRequest.userId = this.properties.data.userId;
+    drlRequest.unitId = this.properties.data.unitId;
 
-    drlRequest.customerType = this.simpleRequestForm.get('customerType').value && this.simpleRequestForm.get('customerType').value.value === '1' ? 'REAL' : 'LEGAL';
+    drlRequest.customerType =
+      this.simpleRequestForm.get('customerType').value && this.simpleRequestForm.get('customerType').value.value === '1'
+        ? 'REAL'
+        : 'LEGAL';
 
-    this.simpleRequestForm.get('customerType').value && this.simpleRequestForm.get('customerType').value.value === '1' ?
-      drlRequest.cifNationalCode = this.simpleRequestForm.get('customerNumber').value :
-      drlRequest.agentNationalCode = this.simpleRequestForm.get('customerNumber').value;
+    this.simpleRequestForm.get('customerType').value && this.simpleRequestForm.get('customerType').value.value === '1'
+      ? (drlRequest.cifNationalCode = this.simpleRequestForm.get('customerNumber').value)
+      : (drlRequest.agentNationalCode = this.simpleRequestForm.get('customerNumber').value);
 
     drlRequest.depositNumber = this.simpleRequestForm.get('accountSelected').value;
     drlRequest.totalRequestAmount = this.totalRequestAmount;
@@ -710,8 +742,8 @@ export class SimpleRequestHomeComponent implements OnInit {
     facilityList.forEach((facility: FacilityInfoModel) => {
       let drlRequestContractInfo = new DrlRequestContractInfoListModel();
 
-      drlRequestContractInfo.userId=this.properties.data.userId;
-      drlRequestContractInfo.unitId=this.properties.data.unitId;
+      drlRequestContractInfo.userId = this.properties.data.userId;
+      drlRequestContractInfo.unitId = this.properties.data.unitId;
 
       drlRequestContractInfo.contractNumber = facility.contractId.toString();
       drlRequestContractInfo.mainEconomicPart = facility.mainEconomicPart.id;

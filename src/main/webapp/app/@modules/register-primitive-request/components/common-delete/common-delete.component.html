@@ -1,0 +1,22 @@
+<mat-card class="col-md-12 col-lg-12">
+  <mat-card-header>
+    {{ 'delete' | translate }}
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ 'label.public.delete.field' | translate }}</p>
+  </mat-card-content>
+  <mat-card-footer>
+    <div class="row">
+      <div class="col-sm-4">
+        <button mat-mini-fab color="primary" (click)="delete()">
+          <mat-icon>check</mat-icon>
+        </button>
+      </div>
+      <div class="col-sm-4">
+        <button mat-mini-fab (click)="cancel()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-footer>
+</mat-card>

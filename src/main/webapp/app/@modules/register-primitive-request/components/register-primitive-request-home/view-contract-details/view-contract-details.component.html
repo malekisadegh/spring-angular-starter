@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-12">
+    <mat-tab-group animationDuration="2000ms">
+      <mat-tab label="{{ 'label.facility.collateral.info' | translate }}">
+        <ng-template matTabContent>
+          <app-facilities-collateral-info
+            [facilityInfoMockModel]="facilityInfoMockModel"
+          ></app-facilities-collateral-info>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="{{ 'label.contract.collateral.info' | translate }}">
+        <ng-template matTabContent>
+          <app-contract-collateral-info [facilityInfoMockModel]="facilityInfoMockModel"></app-contract-collateral-info>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="{{ 'label.floor.non-current.remains' | translate }}">
+        <ng-template matTabContent>
+          <app-floor-non-current-remaining
+            [facilityInfoMockModel]="facilityInfoMockModel"
+          ></app-floor-non-current-remaining>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="{{ 'label.deadline.times' | translate }}">
+        <ng-template matTabContent>
+          <app-giving-deadline></app-giving-deadline>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="{{ 'label.guarantor.info' | translate }}">
+        <ng-template matTabContent>
+          <app-guarantor-info></app-guarantor-info>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

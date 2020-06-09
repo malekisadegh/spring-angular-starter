@@ -1,27 +1,37 @@
 [
   {
-    "title": "صفحه اصلی",
-    "icon": "home",
-    "link": "/home",
-    "home": true
-  },
-  {
-    "title": "مدیریت درخواست های اعتباری",
-    "icon": "credit_card",
-    "children": [
-      {
-        "title": "ثبت درخواست",
-        "link": "/stepper"
-      },
-      {
-        "title": "پیگیری درخواست",
-        "link": "/list"
-      }
-    ]
-  },
-  {
-    "title": "درخواست شعبه",
+    "title": "ثبت درخواست اولیه",
     "icon": "business",
-    "link": "/BranchRequest"
+    "link": "/register-primitive-request"
+  },
+  {
+    "title": "فرم پیگیری درخواست",
+    "icon": "business",
+    "link": "/inquiry-request"
+  },
+  {
+    "title": "درخواست ساده",
+    "icon": "business",
+    "link": "/simple-request"
+  },
+  {
+    "title": "گزارش درخواست های ثبت اولیه",
+    "icon": "business",
+    "link": "/report-request-register-primitive"
+  },
+  {
+    "title": "گزارش درخواست های ثبت نهایی شده",
+    "icon": "business",
+    "link": "/report-request-register-final"
+  },
+  {
+    "title": "گزارش پرونده های تسویه شده",
+    "icon": "business",
+    "link": "/cleared-files-reporting"
+  },
+  {
+    "title": "گزارش پرونده های مطالباتی",
+    "icon": "business",
+    "link": "/demands-files-reporting"
   }
 ]

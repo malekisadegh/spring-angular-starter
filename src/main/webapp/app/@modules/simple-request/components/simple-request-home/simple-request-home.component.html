@@ -1,0 +1,502 @@
+<widget-panel icon="donut_small" [title]="componentTitle">
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="simpleRequestForm">
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.customer.type' | translate }}</mat-label>
+                  <mat-select formControlName="customerType" (selectionChange)="customerNumberLabelFn()">
+                    <mat-option *ngFor="let customerType of customerTypeList" [value]="customerType">
+                      {{ customerType.nameValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ customerNumberLabel }}</mat-label>
+                  <input matInput formControlName="customerNumber" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.customer.name' | translate }}</mat-label>
+                  <input matInput formControlName="customerName" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <button
+                  mat-mini-fab
+                  matTooltip="{{ 'label.customer.info' | translate }}"
+                  color="primary"
+                  (click)="viewCustomerDetails()"
+                  [disabled]="disabledPage"
+                >
+                  <mat-icon>streetview</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.account.select' | translate }}</mat-label>
+                  <mat-select
+                    formControlName="accountSelected"
+                    (selectionChange)="showSomeDetailsOfAccount($event.value)"
+                  >
+                    <mat-option *ngFor="let account of accountList" [value]="account.id">
+                      {{ account.id }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.account.type' | translate }}</mat-label>
+                  <input matInput formControlName="accountSelectedType" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.account.opening.date' | translate }}</mat-label>
+                  <input matInput formControlName="accountSelectedOpenDate" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.economic.sector.main' | translate }}</mat-label>
+                  <input
+                    type="text"
+                    aria-label="Number"
+                    matInput
+                    formControlName="paramEconomicSector"
+                    [matAutocomplete]="paramEconomic"
+                  />
+                  <mat-autocomplete
+                    #paramEconomic="matAutocomplete"
+                    [displayWith]="displayFnOne"
+                    (optionSelected)="changeOne()"
+                  >
+                    <mat-option
+                      *ngFor="let selectMapModel of filteredOptionsMainEconomic | async"
+                      [value]="selectMapModel"
+                    >
+                      {{ selectMapModel.title }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="simpleRequestForm.get('paramEconomicSector').invalid">
+                    {{ 'alert.required' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.economic.sector.isic' | translate }}</mat-label>
+                  <input
+                    type="text"
+                    aria-label="Number"
+                    matInput
+                    formControlName="paramSubEconomicSector"
+                    [matAutocomplete]="paramEconomicActivityType"
+                  />
+                  <mat-autocomplete
+                    #paramEconomicActivityType="matAutocomplete"
+                    [displayWith]="displayFnTwo"
+                    (optionSelected)="changeTwo()"
+                  >
+                    <mat-option
+                      *ngFor="let selectMapModel of filteredOptionsActivityType | async"
+                      [value]="selectMapModel"
+                    >
+                      {{ selectMapModel.title }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="simpleRequestForm.get('paramSubEconomicSector').invalid">
+                    {{ 'alert.required' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.economic.sector.sub' | translate }}</mat-label>
+                  <input
+                    type="text"
+                    aria-label="Number"
+                    matInput
+                    formControlName="paramSubISICSector"
+                    [matAutocomplete]="paramEconomicFieldType"
+                  />
+                  <mat-autocomplete
+                    #paramEconomicFieldType="matAutocomplete"
+                    [displayWith]="displayFnThee"
+                    (optionSelected)="changeThee()"
+                  >
+                    <mat-option
+                      *ngFor="let selectMapModel of filteredOptionsActivityField | async"
+                      [value]="selectMapModel"
+                    >
+                      {{ selectMapModel.title }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="simpleRequestForm.get('paramSubISICSector').invalid">
+                    {{ 'alert.required' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.contract.number' | translate }}</mat-label>
+                  <input matInput formControlName="contractNumber" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.contract.interest.amount' | translate }}</mat-label>
+                  <input matInput formControlName="initialContractAmount" mask="separator.0" thousandSeparator="," />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.contract.rate.initial' | translate }}</mat-label>
+                  <input matInput formControlName="initialContractRate" mask="separator.0" thousandSeparator="," />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.contract.original.amount' | translate }}</mat-label>
+                  <input matInput formControlName="contractOriginalAmount" mask="separator.0" thousandSeparator="," />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.installment.number' | translate }}</mat-label>
+                  <input matInput formControlName="installmentNumber" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.installment.distance' | translate }}</mat-label>
+                  <input matInput placeholder="{{ 'month' | translate }}" formControlName="paymentDeadLinePerMonth" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.intrstRemainAmnt' | translate }}</mat-label>
+                  <input matInput formControlName="intrstRemainAmnt" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.jarRemainAmntIntrstRate' | translate }}</mat-label>
+                  <input matInput formControlName="jarRemainAmntIntrstRate" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.jarRemainAmntExtra' | translate }}</mat-label>
+                  <input matInput formControlName="jarRemainAmntExtra" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.contract.type.other' | translate }}</mat-label>
+                  <input matInput formControlName="contractType" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.remaining.debt' | translate }}</mat-label>
+                  <input matInput formControlName="remainingDebt" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.delay.record.frequency' | translate }}</mat-label>
+                  <input matInput formControlName="delayRecordFrequency" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.remaining.debt.based.principle' | translate }}</mat-label>
+                  <input matInput formControlName="remainingDebtBasedPrinciple" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.remaining.debt.based.profit' | translate }}</mat-label>
+                  <input matInput formControlName="remainingDebtBasedProfit" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.remaining.debt.based.commitment' | translate }}</mat-label>
+                  <input matInput formControlName="remainingDebtBasedCommitment" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <mat-label>{{ 'label.date.from' | translate }}</mat-label>
+                  <input
+                    matInput
+                    id="fromDate"
+                    formControlName="grantedDate"
+                    autocomplete="off"
+                    (click)="startPicker.open()"
+                    [matDatepicker]="startPicker"
+                  />
+                  <mat-icon matSuffix>calendar_today</mat-icon>
+                  <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.details' | translate }}</mat-label>
+                  <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <button mat-mini-fab color="accent" (click)="resetSimpleForm()" [disabled]="disabledPage">
+                  <mat-icon>refresh</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <mat-card id="print">
+    <mat-card-content>
+      <div #myDiv>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-2">
+                <button
+                  mat-mini-fab
+                  id="AddButton"
+                  color="primary"
+                  (click)="addValueToTable()"
+                  [disabled]="disabledPage"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-sm-12">
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                  <ng-container matColumnDef="contractNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.contract.number' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">{{ element.contractId }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="contractType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.contract.type.other' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.contractType }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="originalAmountContract">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.contract.original.amount' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.facilityAmount | mask: 'separator':',' }}</td>
+                    <td mat-footer-cell *matFooterCellDef>{{ getTotalCost() | mask: 'separator':',' }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="interestRateStatedContract">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.contract.rate.interest.state' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.contractRateInterest }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="debtRemaining">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.remaining.debt' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">{{ element.deferred }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="remainingDebtBasedPrinciple">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.remaining.debt.based.principle' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.remainingDebtBasedPrinciple }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="remainingDebtBasedProfit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.remaining.debt.based.profit' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.remainingDebtBasedProfit }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="remainingDebtBasedCommitment">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.remaining.debt.based.commitment' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.remainingDebtBasedProfit }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="recordFrequencyDelays">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ 'label.delay.record.frequency' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.deadLineNumber }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="details">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.details' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button
+                        id="deleteButton"
+                        mat-icon-button
+                        color="warn"
+                        (click)="delete(element)"
+                        matTooltip="{{ 'delete' | translate }}"
+                        [disabled]="disabledPage"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                      <button
+                        id="insert_drive_fileButton"
+                        mat-icon-button
+                        color="primary"
+                        (click)="openAddDocumentFileDialog(element)"
+                        matTooltip="{{ 'label.collateral.register' | translate }}"
+                        [disabled]="disabledPage"
+                      >
+                        <mat-icon>insert_drive_file</mat-icon>
+                      </button>
+                      <button
+                        id="image_searchButton"
+                        mat-icon-button
+                        color="primary"
+                        (click)="openViewDocumentFileDialog(element.contractId)"
+                        matTooltip="{{ 'label.attachment.show' | translate }}"
+                      >
+                        <mat-icon>image_search</mat-icon>
+                      </button>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <form [formGroup]="detailsForm">
+          <div class="row">
+            <div class="col-sm-8">
+              <mat-form-field class="input-full-width">
+                <mat-label>{{ 'label.collateral.action.taken' | translate }}</mat-label>
+                <textarea matInput formControlName="actionsTakenOnCollateral" rows="10" cols="40"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-3">
+                  <mat-form-field class="input-full-width">
+                    <mat-label>{{ 'label.public.mobile' | translate }}</mat-label>
+                    <input matInput formControlName="mobile" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-9">
+                  <mat-form-field class="input-full-width">
+                    <mat-label>{{ 'label.details' | translate }}</mat-label>
+                    <textarea matInput formControlName="details"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-2">
+              <button mat-raised-button color="primary" (click)="save()" [disabled]="registerButtonDisable">
+                <mat-icon>save</mat-icon>
+                {{ 'insert' | translate }}
+              </button>
+            </div>
+            <div class="col-3">
+              <button mat-raised-button color="accent">
+                <mat-icon>arrow_forward</mat-icon>
+                {{ 'reference.for.correction' | translate }}
+              </button>
+            </div>
+            <div class="col-2">
+              <button mat-raised-button color="warn">
+                <mat-icon>cancel</mat-icon>
+                {{ 'cancel' | translate }}
+              </button>
+            </div>
+            <div class="col-2">
+              <!--
+                              <button printTitle="عقد فروش اقساطی" [useExistingCss]="true"
+                                      printSectionId="print" [printStyle]="{'*' : {'direction': 'rtl', 'text-align': 'right'}}" ngxPrint>
+                                چاپ چاپ
+                              </button>
+                              <button mat-raised-button (click)="printJS()">{{'print' | translate}}</button>
+              -->
+              <button mat-raised-button (click)="printTest()">{{ 'print' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</widget-panel>

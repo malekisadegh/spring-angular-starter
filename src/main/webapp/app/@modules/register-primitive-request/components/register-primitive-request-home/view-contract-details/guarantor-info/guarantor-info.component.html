@@ -1,0 +1,112 @@
+<mat-card>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-6">{{ 'label.customer.national.id' | translate }}:</div>
+          <div class="col-sm-6">
+            <strong>{{ guarantorInfoModel.customerId }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-6">{{ 'label.public.full.name' | translate }}:</div>
+          <div class="col-sm-6">
+            <strong>{{ guarantorInfoModel.fullName }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-6">{{ 'label.public.mobile' | translate }}:</div>
+          <div class="col-sm-6">
+            <strong>{{ guarantorInfoModel.mobile }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-card>
+          <mat-card-header>
+            {{ 'label.public.info.place.work' | translate }}
+          </mat-card-header>
+          <br />
+          <mat-card-content>
+            <table mat-table [dataSource]="dataSourceWork" class="mat-elevation-z8" matSort>
+              <ng-container matColumnDef="indexColumn">
+                <th mat-header-cell *matHeaderCellDef class="id-table-cell">{{ 'label.row' | translate }}</th>
+                <td mat-cell *matCellDef="let element" class="id-table-cell">{{ element.id }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.address' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="postalCode">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.public.post.code' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.postalCode }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.public.phone' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsWork"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsWork"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-card>
+          <mat-card-header>
+            {{ 'label.public.info.place.life' | translate }}
+          </mat-card-header>
+          <br />
+          <mat-card-content>
+            <table mat-table [dataSource]="dataSourceLife" class="mat-elevation-z8" matSort>
+              <ng-container matColumnDef="indexColumn">
+                <th mat-header-cell *matHeaderCellDef class="id-table-cell">{{ 'label.row' | translate }}</th>
+                <td mat-cell *matCellDef="let element" class="id-table-cell">{{ element.id }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.address' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="postalCode">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.public.post.code' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.postalCode }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.public.phone' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsLife"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsLife"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

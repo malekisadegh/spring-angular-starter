@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <img height="400" width="400" [src]="file" />
+</div>
+<div mat-dialog-actions>
+  <button mat-fab color="warn" matTooltip="{{ 'return' | translate }}" matTooltipPosition="left" (click)="close()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

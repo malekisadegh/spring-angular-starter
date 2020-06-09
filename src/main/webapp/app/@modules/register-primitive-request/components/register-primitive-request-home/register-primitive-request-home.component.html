@@ -1,0 +1,261 @@
+<widget-panel icon="donut_small" [title]="componentTitle">
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="registerPrimitiveRequestForm">
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.customer.type' | translate }}</mat-label>
+                  <mat-select formControlName="customerType">
+                    <mat-option *ngFor="let customerType of customerTypeList" [value]="customerType">
+                      {{ customerType.nameValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.customer.number' | translate }}</mat-label>
+                  <input matInput formControlName="customerNumber" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <button mat-mini-fab color="primary" (click)="search()" [disabled]="disabledPage">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+              <div class="col-sm-3">
+                <button
+                  mat-mini-fab
+                  matTooltip="{{ 'label.customer.info' | translate }}"
+                  color="primary"
+                  (click)="viewCustomerDetails()"
+                  [disabled]="disabledPage"
+                >
+                  <mat-icon>streetview</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="contractListForm">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-6">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.contract.list' | translate }}</mat-label>
+                  <mat-select formControlName="contract" (selectionChange)="assignValueToObject($event.value)">
+                    <mat-option *ngFor="let contract of contractList" [value]="contract">
+                      {{ contract.facilityNumber }} - {{ contract.branchName }} - {{ contract.branchCode }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <button
+                  mat-raised-button
+                  color="accent"
+                  (click)="viewFacilitiesCollateralInfo()"
+                  [disabled]="disabledPage"
+                >
+                  {{ 'label.contract.info' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-2">
+                <button mat-mini-fab color="primary" (click)="addValueToTable()" [disabled]="disabledPage">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <br />
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                <ng-container matColumnDef="contractNumber">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.contract.number' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.contractId }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="contractType">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'label.contract.type.other' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.contractType }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="originalAmountContract">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'label.contract.original.amount' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.facilityAmount | mask: 'separator':',' }}</td>
+                  <td mat-footer-cell *matFooterCellDef>{{ getTotalCost() | mask: 'separator':',' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="interestRateStatedContract">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'label.contract.rate.interest.state' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.contractRateInterest }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="debtRemaining">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.remaining.debt' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.deferred }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="recordFrequencyDelays">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ 'label.delay.record.frequency' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.deadLineNumber }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'label.details' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      (click)="viewTableDetails(element)"
+                      matTooltip="{{ 'label.view.details' | translate }}"
+                    >
+                      <mat-icon>pageview</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="delete(element)"
+                      matTooltip="{{ 'delete' | translate }}"
+                      [disabled]="disabledPage"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      (click)="openAddDocumentFileDialog(element)"
+                      matTooltip="{{ 'label.collateral.register' | translate }}"
+                      [disabled]="disabledPage"
+                    >
+                      <mat-icon>insert_drive_file</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      (click)="openViewDocumentFileDialog(element.contractId)"
+                      matTooltip="{{ 'label.attachment.show' | translate }}"
+                    >
+                      <mat-icon>image_search</mat-icon>
+                    </button>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+              </table>
+
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <form [formGroup]="detailsForm">
+        <div class="row">
+          <div class="col-sm-8">
+            <mat-form-field class="input-full-width">
+              <mat-label>{{ 'label.collateral.action.taken' | translate }}</mat-label>
+              <textarea matInput formControlName="actionsTakenOnCollateral" rows="10" cols="40"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-3">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.public.mobile' | translate }}</mat-label>
+                  <input matInput formControlName="mobile" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-9">
+                <mat-form-field class="input-full-width">
+                  <mat-label>{{ 'label.details' | translate }}</mat-label>
+                  <textarea matInput formControlName="details"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-2">
+              <button mat-raised-button color="primary" (click)="save()" [disabled]="registerButtonDisable">
+                <mat-icon>save</mat-icon>
+                {{ 'insert' | translate }}
+              </button>
+            </div>
+            <div class="col-3">
+              <button mat-raised-button color="accent">
+                <mat-icon>arrow_forward</mat-icon>
+                {{ 'reference.for.correction' | translate }}
+              </button>
+            </div>
+            <div class="col-2">
+              <button mat-raised-button color="warn">
+                <mat-icon>cancel</mat-icon>
+                {{ 'cancel' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</widget-panel>
