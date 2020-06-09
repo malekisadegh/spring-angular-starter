@@ -1,4 +1,7 @@
-node_modules
-target
+/node_modules
+/target
 package-lock.json
 .git
+/.idea/
+/dist/
+/node/

@@ -11,8 +11,7 @@ export class PropertiesService {
 
   use(prop: string): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
-      const langPath = `assets/properties/${prop}.json`;
-      this.http.get<{}>(langPath).subscribe(
+      this.http.get<{}>(prop).subscribe(
         (properties) => {
           this.data = Object.assign({}, properties || {});
           resolve(this.data);

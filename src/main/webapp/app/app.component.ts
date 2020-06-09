@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'rxjs';
@@ -9,6 +9,9 @@ import { environment } from '@env/environment';
 import { Logger, untilDestroyed } from '@core';
 import { I18nService } from '@app/i18n';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { StartUpAlertHomeComponent } from '@modules/start-up-alert/components/start-up-alert-home/start-up-alert-home.component';
+import { StaticValueService } from '@shared/util/static-value.service';
 
 const log = new Logger('App');
 
@@ -29,7 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private i18nService: I18nService,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    public dialog: MatDialog
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -41,6 +45,19 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Start Up Dialog
+    if (
+      localStorage.getItem(StaticValueService.LOCAL_STORAGE_STARTUP_LAW) !==
+      StaticValueService.LOCAL_STORAGE_STARTUP_LAW_ACCEPT
+    ) {
+      const dialogRef = this.dialog.open(StartUpAlertHomeComponent, {
+        width: 'auto',
+        disableClose: true,
+      });
+
+      dialogRef.afterClosed();
+    }
+
     // Setup logger
     if (environment.production) {
       Logger.enableProductionMode();
@@ -50,6 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Setup translations
     this.i18nService.init(environment.defaultLanguage, environment.supportedLanguages);
+    this.setLanguage(environment.defaultLanguage);
 
     const onNavigationEnd = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
 
@@ -73,6 +91,10 @@ export class AppComponent implements OnInit, OnDestroy {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
+  }
+
+  setLanguage(language: string) {
+    this.i18nService.language = language;
   }
 
   ngOnDestroy() {

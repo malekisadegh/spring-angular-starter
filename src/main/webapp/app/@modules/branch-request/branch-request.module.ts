@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+/*import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';*/
 
 import { BranchRequestComponent } from './components/branch-request/branch-request.component';
 import { SharedModule } from '@shared/shared.module';
@@ -25,6 +27,10 @@ import { InsertRequestComponent } from './components/insert-request/insert-reque
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    /*    FormlyModule.forRoot({
+      validationMessages: [{ name: 'required', message: 'This field is required' }],
+    }),
+    FormlyMaterialModule,*/
   ],
 })
 export class BranchRequestModule {}

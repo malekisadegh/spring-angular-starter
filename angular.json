@@ -30,7 +30,7 @@
               "src/main/webapp/manifest",
               "src/main/webapp/content"
             ],
-            "styles": ["src/main/webapp/content/theme/main.scss"],
+            "styles": ["src/main/webapp/content/theme/main.scss", "node_modules/bootstrap/dist/css/bootstrap.min.css"],
             "scripts": []
           },
           "configurations": {
@@ -73,7 +73,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "ng-x-los:build",
-            "port": 4200,
+            "port": 8080,
             "hmr": true,
             "hmrWarning": false
           },
@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "ng-x-los"
+  "defaultProject": "ng-x-los",
+  "cli": {
+    "analytics": "b439c3b5-dc2e-4e64-9cbb-d01a27179df2"
+  }
 }

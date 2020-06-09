@@ -1,0 +1,26 @@
+[
+  {
+    "title": "درخواست شعبه",
+    "icon": "business",
+    "link": "/BranchRequest",
+    "description": "ایجاد درخواست تسهیلات"
+  },
+  {
+    "title": "پیگیری درخواست",
+    "icon": "search",
+    "link": "/SearchRequest",
+    "description": "پیگیری درخواست تسهیلات"
+  },
+  {
+    "title": "استعلامات عمومی",
+    "icon": "group",
+    "link": "/Inquiry",
+    "description": "استعلامات و پیگیری های تسهیلات"
+  },
+  {
+    "title": "فروش اقساطی",
+    "icon": "av_timer",
+    "link": "/Leasing",
+    "description": "تسهیلات فروش اقساطی"
+  }
+]

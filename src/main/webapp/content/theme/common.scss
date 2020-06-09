@@ -1,6 +1,7 @@
 html {
   height: 100vh;
 }
+
 body {
   margin: 0;
   height: 100vh;
@@ -25,16 +26,19 @@ strong {
   font-family: IRANSans !important;
   text-align: right;
 }
+
 input,
 button,
 textarea,
 option,
 select {
   font-family: vazir !important;
+
   span {
     font-family: vazir !important;
   }
 }
+
 a {
   text-decoration: none;
   color: #212529;
@@ -46,11 +50,34 @@ div[class^="mat-step"] {
   }
 }
 
+table {
+  width: 100%;
+}
+
+thead,
+tr,
+td {
+  font-family: vazir !important;
+}
+
+.input-full-width {
+  width: 100%;
+}
+
+.input-half-width {
+  width: 50%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 .gradient-green {
   background: #2e7d32;
   background: linear-gradient(50deg, #c5d429, #2e7d32);
   color: #fff;
 }
+
 .gradient-red {
   background: #d50000;
   background: linear-gradient(50deg, #ff9e80, #d50000);
@@ -68,6 +95,7 @@ div[class^="mat-step"] {
   background: linear-gradient(50deg, #f59e99, #e91e63);
   color: #fff;
 }
+
 .gradient-gray {
   background: #263238;
   background: linear-gradient(50deg, #8ef9fe, #263238);
@@ -84,9 +112,11 @@ pre {
   text-align: left;
   margin: 15px 5px;
 }
+
 .ltr {
   direction: ltr;
 }
+
 .rtl {
   direction: rtl;
 }
@@ -94,6 +124,7 @@ pre {
 .mat-form-field {
   margin-bottom: 15px;
 }
+
 .no-padding {
   padding: 0;
 }

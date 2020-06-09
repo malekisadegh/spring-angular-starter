@@ -33,6 +33,7 @@ import { GlobalErrorHandler } from './http/global-error-handler';
       useClass: GlobalErrorHandler,
     },
   ],
+  declarations: [],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

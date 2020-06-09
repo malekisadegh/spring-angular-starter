@@ -5,77 +5,54 @@
 }
 
 .jumbotron {
-  //background-color: map.get($theme-colors, "primary");
-  background: linear-gradient(210deg, #673ab7 50%, #673ab7 80%, #d782d9 105%);
   border-radius: 0;
   color: #172b4d;
   padding: 15px;
-  margin: -10px -15px;
+  margin: 110px 15px;
   min-height: 345px;
+  width: 50%;
+  background-color: transparent;
+
   .message {
-    background-image: url("../../../../../content/images/bg/promo-back.png");
-    width: 410px;
+    width: 600px;
     height: 315px;
     margin-right: 125px;
     background-repeat: no-repeat;
     position: relative;
     float: right;
+    position: relative;
 
-    h4 {
-      margin: 40px 20px 0 10px;
+    .title {
+      margin: 40px 20px 10px 10px;
       display: inline-block;
+      position: relative;
+      z-index: 2;
     }
+    .sub-title {
+      margin: 10px 20px 50px 10px;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+      color: #777777;
+    }
+
     .welcome-message {
-      width: 360px;
+      width: 600px;
       padding: 0 15px 0;
+      margin-top: 20px;
       text-align: justify;
+      position: relative;
+      z-index: 2;
     }
-  }
-
-  .shape {
-    position: absolute;
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-
-    &:nth-child(1) {
-      left: -4%;
-      bottom: auto;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    &:nth-child(2) {
-      right: 4%;
-      top: 5%;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    &:nth-child(3) {
-      top: 27%;
-      right: 50%;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    &:nth-child(4) {
-      top: 1%;
-      right: 32%;
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    &:nth-child(5) {
-      top: 25%;
-      left: 1%;
-      right: auto;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    &:nth-child(6) {
-      width: 200px;
-      height: 200px;
-      top: 7%;
-      left: 10%;
-      right: auto;
-      background: rgba(255, 255, 255, 0.15);
+    button.welcome-message-btn {
+      margin-top: 40px;
+      border-radius: 32px;
+      padding: 10px 20px;
+      box-shadow: none;
+      border: none;
+      background-color: #673ab7;
+      color: #fff;
+      float: left;
     }
   }
 
@@ -89,11 +66,71 @@
   }
 }
 
+.container-fluid {
+  padding: 0;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin-top: -15px;
+  margin-left: -15px;
+}
+
+.shape-outer {
+  position: absolute;
+  height: 1200px;
+  width: 1200px;
+  border-radius: 50%;
+  left: -15%;
+  top: -10%;
+  bottom: auto;
+  background: $white;
+  box-shadow: 0px 160px 100px #e4deef;
+}
+
+.shape-inner {
+  position: absolute;
+  height: 500px;
+  width: 500px;
+  border-radius: 50%;
+  left: 15%;
+  top: 18%;
+  bottom: auto;
+  background: $white;
+  box-shadow: 30px 10px 100px #efeefd;
+}
+
+.shape-banner {
+  position: absolute;
+  height: 400px;
+  width: 400px;
+  border-radius: 50%;
+  left: 17.5%;
+  top: 23%;
+  bottom: auto;
+  background-color: #c5c9ef;
+  background-image: url("~src/main/webapp/content/images/icon/banking-process.png");
+}
+
+.shape-title {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  right: -10px;
+  top: -8px;
+  bottom: auto;
+  background: #fff;
+  box-shadow: 0px 100px 98px #f2edfb;
+  z-index: 1;
+}
+
 q {
   font-style: italic;
   font-size: 1.2rem;
   quotes: "« " " »";
 }
+
 .shortcut-links-wrapper {
   margin: 30px 15px 15px;
 }
