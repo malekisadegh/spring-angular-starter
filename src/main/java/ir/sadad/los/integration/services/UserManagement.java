@@ -1,5 +1,6 @@
 package ir.sadad.los.integration.services;
 
+import ir.sadad.los.config.CommonConfigs;
 import ir.sadad.los.integration.processors.AccessTokenProcessor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -17,8 +18,12 @@ public class UserManagement extends RouteBuilder {
   private AccessTokenProcessor accessTokenProcessor;
 
 
+  @Autowired
+  private CommonConfigs commonConfigs;
+
+
   @Override
-    public void configure() throws Exception {
+  public void configure() throws Exception {
 
     CamelContext context = new DefaultCamelContext();
 
@@ -29,20 +34,11 @@ public class UserManagement extends RouteBuilder {
       .component("servlet")
       .bindingMode(RestBindingMode.json);
 
-    /*for test call http://localhost:8080/rest/api/bean*/
-    rest("/api/")
-      .id("api-route")
-      .consumes("application/json")
-      .get("/bean")
-      .bindingMode(RestBindingMode.json_xml)
-      .to("direct:remoteService");
-
-    from("direct:remoteService")
-      .routeId("direct-route")
-      .tracing()
+    from("servlet:///?matchOnUriPrefix=true")
+      .routeId("proxy-route")
       .process(accessTokenProcessor)
-      .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
+      .toD(commonConfigs.getServicesBaseURI() + "/?bridgeEndpoint=true")
+      .to("log:DEBUG?showBody=true&showHeaders=true");
 
-
-    }
+  }
 }

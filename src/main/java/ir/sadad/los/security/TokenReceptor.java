@@ -16,11 +16,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.slf4j.Slf4j;
@@ -93,5 +91,53 @@ public class TokenReceptor {
 
   }
 
+  @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+  public void getUserInfo(@RequestParam("ssn") String ssn, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
+    ResponseEntity<String> response = null;
+    String accessToken = null;
+
+    RestTemplate restTemplate = new RestTemplate();
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication != null) {
+      accessToken = ((BmiOAuth2User) ((OAuth2AuthenticationToken) authentication).getPrincipal()).getToken();
+    }
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+    headers.add("Authorization", "Bearer " + accessToken);
+
+    HttpEntity<String> request = new HttpEntity<String>(headers);
+
+    String user_info_uri = securityConfigs.getUserInfoEndpoint();
+    user_info_uri += "?claims=" + "user_info";
+    user_info_uri += "&nationalIds=" + ssn;
+
+    response = restTemplate.exchange(user_info_uri, HttpMethod.GET, request, String.class);
+
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode node = mapper.readTree(response.getBody());
+
+  }
+
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  public String getTestInfo(@RequestParam("ssn") String ssn, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    return ssn;
+  }
+
+  @RequestMapping(value = "/post2", method = RequestMethod.POST)
+  public String getTest2(@RequestBody TestDto testDto, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    return testDto.getName();
+  }
+
+  @RequestMapping(value = "/put2", method = RequestMethod.PUT)
+  public String getTest4(@RequestBody TestDto testDto, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    return testDto.getName();
+  }
+
+  @RequestMapping(value = "/delete2", method = RequestMethod.DELETE)
+  public String getTest3(@RequestParam("ssn") String ssn, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    return ssn;
+  }
 }
